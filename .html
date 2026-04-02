@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manolo Repole | Sonido Profesional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Canvas de onda de audio */
+        #audioWaveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo p {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        nav button {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        nav button:hover {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+            transform: translateY(-2px);
+        }
+
+        /* Secciones */
+        .section {
+            display: none;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 30px 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid de servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(78,205,196,0.1));
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff6b6b;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.3);
+        }
+
+        .service-card i {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .service-card .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4ecdc4;
+            margin: 15px 0;
+        }
+
+        /* Formularios */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255,107,107,0.5);
+        }
+
+        /* Tabla solicitudes */
+        .solicitudes-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            background: rgba(255,107,107,0.3);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: rgba(78,205,196,0.3);
+            border: 1px solid #4ecdc4;
+        }
+
+        .alert-error {
+            background: rgba(255,107,107,0.3);
+            border: 1px solid #ff6b6b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<canvas id="audioWaveCanvas"></canvas>
+
+<div class="container">
+    <header>
+        <div class="logo">
+            <h1>🔊 Manolo Repole</h1>
+            <p>Sonido profesional · 20 años de experiencia</p>
+        </div>
+        <nav>
+            <button onclick="showSection('home')">🏠 Inicio</button>
+            <button onclick="showSection('services')">🎧 Servicios</button>
+            <button onclick="showSection('register')">📝 Registro Dueño</button>
+            <button onclick="showSection('login')">🔐 Panel Dueño</button>
+        </nav>
+    </header>
+
+    <!-- SECCIÓN INICIO -->
+    <div id="home" class="section active">
+        <h2 style="font-size: 48px; margin-bottom: 20px;">Sonido que <span style="color: #ff6b6b;">impacta</span></h2>
+        <p style="font-size: 20px; margin-bottom: 40px;">Eventos, conciertos, estudios de grabación y más. Calidad profesional garantizada.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div style="text-align: center;"><i class="fas fa-microphone-alt" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Microfonía</strong></div>
+            <div style="text-align: center;"><i class="fas fa-mixer" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Mezcla en vivo</strong></div>
+            <div style="text-align: center;"><i class="fas fa-headphones" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Monitoreo</strong></div>
+            <div style="text-align: center;"><i class="fas fa-music" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Masterización</strong></div>
+        </div>
+        <button onclick="showSection('services')" style="margin-top: 40px;">🎵 Ver servicios →</button>
+    </div>
+
+    <!-- SECCIÓN SERVICIOS (COMPRA) -->
+    <div id="services" class="section">
+        <h2 style="font-size: 36px; margin-bottom: 20px;">🎤 Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card" onclick="solicitarServicio('Concierto en vivo')">
+                <i class="fas fa-drum"></i>
+                <h3>Concierto en vivo</h3>
+                <p>Sonido profesional para eventos musicales</p>
+                <div class="price">600€</div>
+            </div>
+            <div class="service-card" onclick="solicitarServicio('Grabación estudio')">
+                <i class="fas fa-studio"></i>
+                <h3>Grabación estudio</h3>
+                <p>Grabación y mezcla profesional</p>
+                <div class="price">350€/día</div>
+            </div>
+            <div class="service-card" onclick="solicitarServicio('Bodas y eventos')">
+                <i class="fas fa-glass-cheers"></i>
+                <h3>Bodas y eventos</h3>
+                <p>Sonido ambiental y música en vivo</p>
+                <div class="price">450€</div>
+            </div>
+            <div class="service-card" onclick="solicitarServicio('Alquiler equipo')">
+                <i class="fas fa-box"></i>
+                <h3>Alquiler equipo</h3>
+                <p>Altavoces, mesas, micrófonos</p>
+                <div class="price">200€/día</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTRO DUEÑO (solo Manolo) -->
+    <div id="register" class="section">
+        <h2>📝 Registro del Dueño</h2>
+        <p style="margin-bottom: 20px;">Manolo Repole, regístrate para gestionar las solicitudes.</p>
+        <div id="registerMsg"></div>
+        <form id="registerForm">
+            <div class="form-group">
+                <input type="text" id="ownerUser" placeholder="Usuario" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="ownerPass" placeholder="Contraseña" required>
+            </div>
+            <button type="submit">Registrarme como dueño</button>
+        </form>
+    </div>
+
+    <!-- LOGIN DUEÑO -->
+    <div id="login" class="section">
+        <h2>🔐 Panel de Control - Manolo Repole</h2>
+        <div id="loginMsg"></div>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="loginUser" placeholder="Usuario" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPass" placeholder="Contraseña" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+        <div id="solicitudesPanel" style="margin-top: 30px; display: none;">
+            <h3>📋 Solicitudes de servicio</h3>
+            <div class="solicitudes-table">
+                <table id="tablaSolicitudes">
+                    <thead>
+                        <tr><th>Cliente</th><th>Email</th><th>Teléfono</th><th>Servicio</th><th>Fecha</th></tr>
+                    </thead>
+                    <tbody id="listaSolicitudes"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ONDAS DE AUDIO ANIMADAS
+    const canvas = document.getElementById('audioWaveCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    
+    let time = 0;
+    function drawWaves() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#ff6b6b';
+        ctx.lineWidth = 2;
+        
+        for(let i = 0; i < 5; i++) {
+            ctx.beginPath();
+            let offset = i * 40;
+            for(let x = 0; x < canvas.width; x += 10) {
+                let y = canvas.height/2 + Math.sin(x * 0.01 + time + offset) * 30 + Math.cos(x * 0.02 + time * 1.5) * 15;
+                if(x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+        
+        for(let i = 0; i < 5; i++) {
+            ctx.beginPath();
+            let offset = i * 40 + 200;
+            for(let x = 0; x < canvas.width; x += 10) {
+                let y = canvas.height/3 + Math.sin(x * 0.015 + time * 2 + offset) * 20;
+                if(x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.strokeStyle = '#4ecdc4';
+            ctx.stroke();
+        }
+        
+        time += 0.05;
+        requestAnimationFrame(drawWaves);
+    }
+    drawWaves();
+    
+    // FUNCIONES PRINCIPALES
+    function showSection(sectionId) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+    
+    // Solicitar servicio
+    function solicitarServicio(servicio) {
+        let nombre = prompt("📞 Tu nombre completo:");
+        if(!nombre) return;
+        let email = prompt("✉️ Tu email:");
+        if(!email) return;
+        let telefono = prompt("📱 Tu teléfono:");
+        if(!telefono) return;
+        
+        let solicitud = {
+            id: Date.now(),
+            nombre: nombre,
+            email: email,
+            telefono: telefono,
+            servicio: servicio,
+            fecha: new Date().toLocaleString()
+        };
+        
+        let solicitudes = JSON.parse(localStorage.getItem('solicitudes') || '[]');
+        solicitudes.push(solicitud);
+        localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
+        
+        alert("✅ ¡Solicitud enviada! Manolo Repole te contactará pronto.");
+    }
+    
+    // Registro del dueño
+    document.getElementById('registerForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let user = document.getElementById('ownerUser').value;
+        let pass = document.getElementById('ownerPass').value;
+        
+        if(user === "Manolo" || user === "manolo") {
+            localStorage.setItem('owner', JSON.stringify({usuario: user, password: btoa(pass)}));
+            document.getElementById('registerMsg').innerHTML = '<div class="alert alert-success">✅ Dueño registrado correctamente. Ahora inicia sesión.</div>';
+            setTimeout(() => showSection('login'), 1500);
+        } else {
+            document.getElementById('registerMsg').innerHTML = '<div class="alert alert-error">❌ Solo Manolo Repole puede registrarse como dueño.</div>';
+        }
+    });
+    
+    // Login y ver solicitudes
+    document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let user = document.getElementById('loginUser').value;
+        let pass = document.getElementById('loginPass').value;
+        
+        let ownerData = localStorage.getItem('owner');
+        if(!ownerData) {
+            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-error">❌ No hay dueño registrado. Regístrate primero.</div>';
+            return;
+        }
+        
+        let owner = JSON.parse(ownerData);
+        if(owner.usuario === user && atob(owner.password) === pass) {
+            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-success">✅ Bienvenido Manolo Repole</div>';
+            document.getElementById('solicitudesPanel').style.display = 'block';
+            mostrarSolicitudes();
+        } else {
+            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-error">❌ Usuario o contraseña incorrectos</div>';
+        }
+    });
+    
+    function mostrarSolicitudes() {
+        let solicitudes = JSON.parse(localStorage.getItem('solicitudes') || '[]');
+        let tbody = document.getElementById('listaSolicitudes');
+        tbody.innerHTML = '';
+        if(solicitudes.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5">No hay solicitudes aún</td></tr>';
+            return;
+        }
+        solicitudes.forEach(s => {
+            let row = tbody.insertRow();
+            row.insertCell(0).innerText = s.nombre;
+            row.insertCell(1).innerText = s.email;
+            row.insertCell(2).innerText = s.telefono;
+            row.insertCell(3).innerText = s.servicio;
+            row.insertCell(4).innerText = s.fecha;
+        });
+    }
+    
+    // Cargar solicitudes automáticamente si ya está logueado
+    if(localStorage.getItem('owner')) {
+        // Opcional: comprobar sesión, pero por simplicidad lo dejamos así
+    }
+</script>
+
+</body>
+</html>
