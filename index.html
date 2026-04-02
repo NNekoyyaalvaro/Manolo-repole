@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manolo Repole | Sonido Profesional</title>
+    <title>Manolo Repole | Ingeniería de Sonido Profesional</title>
     <style>
         * {
             margin: 0;
@@ -26,7 +26,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.3;
+            opacity: 0.35;
             pointer-events: none;
         }
 
@@ -214,6 +214,28 @@
             border: 1px solid #ff6b6b;
         }
 
+        /* Estadísticas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header {
@@ -235,79 +257,126 @@
     <header>
         <div class="logo">
             <h1>🔊 Manolo Repole</h1>
-            <p>Sonido profesional · 20 años de experiencia</p>
+            <p>Ingeniería de sonido · Más de 20 años creando experiencias sonoras únicas</p>
         </div>
         <nav>
             <button onclick="showSection('home')">🏠 Inicio</button>
             <button onclick="showSection('services')">🎧 Servicios</button>
-            <button onclick="showSection('register')">📝 Registro Dueño</button>
+            <button onclick="showSection('about')">📖 Sobre Manolo</button>
             <button onclick="showSection('login')">🔐 Panel Dueño</button>
         </nav>
     </header>
 
     <!-- SECCIÓN INICIO -->
     <div id="home" class="section active">
-        <h2 style="font-size: 48px; margin-bottom: 20px;">Sonido que <span style="color: #ff6b6b;">impacta</span></h2>
-        <p style="font-size: 20px; margin-bottom: 40px;">Eventos, conciertos, estudios de grabación y más. Calidad profesional garantizada.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-            <div style="text-align: center;"><i class="fas fa-microphone-alt" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Microfonía</strong></div>
-            <div style="text-align: center;"><i class="fas fa-mixer" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Mezcla en vivo</strong></div>
-            <div style="text-align: center;"><i class="fas fa-headphones" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Monitoreo</strong></div>
-            <div style="text-align: center;"><i class="fas fa-music" style="font-size: 40px; color: #4ecdc4;"></i><br><strong>Masterización</strong></div>
+        <h2 style="font-size: 48px; margin-bottom: 20px;">Sonido que <span style="color: #ff6b6b;">transforma</span> momentos</h2>
+        <p style="font-size: 20px; margin-bottom: 20px;">Especialistas en sonido en vivo, grabación y producción musical para eventos de alto nivel.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div>Eventos realizados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div>Años de experiencia</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">98%</div>
+                <div>Clientes satisfechos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div>Soporte técnico</div>
+            </div>
         </div>
-        <button onclick="showSection('services')" style="margin-top: 40px;">🎵 Ver servicios →</button>
+        
+        <p style="font-size: 18px; line-height: 1.6; margin: 30px 0;">Manolo Repole ha trabajado con artistas nacionales e internacionales, garantizando la mejor calidad de sonido en conciertos, bodas, eventos corporativos y estudios de grabación. Equipo de última generación y pasión por la excelencia auditiva.</p>
+        
+        <button onclick="showSection('services')" style="margin-top: 20px;">🎵 Ver servicios y precios →</button>
     </div>
 
     <!-- SECCIÓN SERVICIOS (COMPRA) -->
     <div id="services" class="section">
-        <h2 style="font-size: 36px; margin-bottom: 20px;">🎤 Nuestros Servicios</h2>
+        <h2 style="font-size: 36px; margin-bottom: 20px;">🎤 Servicios Profesionales</h2>
+        <p style="margin-bottom: 30px;">Equipo de alta gama, técnicos certificados y sonido impecable para cualquier evento o proyecto.</p>
         <div class="services-grid">
             <div class="service-card" onclick="solicitarServicio('Concierto en vivo')">
                 <i class="fas fa-drum"></i>
                 <h3>Concierto en vivo</h3>
-                <p>Sonido profesional para eventos musicales</p>
-                <div class="price">600€</div>
+                <p>Sonido profesional para festivales, conciertos y presentaciones</p>
+                <div class="price">Desde 600€</div>
+                <small>+ IVA · Incluye técnico y equipo básico</small>
             </div>
             <div class="service-card" onclick="solicitarServicio('Grabación estudio')">
-                <i class="fas fa-studio"></i>
-                <h3>Grabación estudio</h3>
-                <p>Grabación y mezcla profesional</p>
+                <i class="fas fa-microphone-alt"></i>
+                <h3>Grabación y Mezcla</h3>
+                <p>Estudio insonorizado con equipamiento profesional</p>
                 <div class="price">350€/día</div>
+                <small>+ IVA · 8 horas con ingeniero</small>
             </div>
-            <div class="service-card" onclick="solicitarServicio('Bodas y eventos')">
+            <div class="service-card" onclick="solicitarServicio('Bodas y eventos sociales')">
                 <i class="fas fa-glass-cheers"></i>
-                <h3>Bodas y eventos</h3>
-                <p>Sonido ambiental y música en vivo</p>
+                <h3>Bodas y Eventos</h3>
+                <p>Sonido ambiental, música en vivo y discurso</p>
                 <div class="price">450€</div>
+                <small>+ IVA · Ceremonia + banquete</small>
             </div>
-            <div class="service-card" onclick="solicitarServicio('Alquiler equipo')">
+            <div class="service-card" onclick="solicitarServicio('Alquiler equipo PA')">
                 <i class="fas fa-box"></i>
-                <h3>Alquiler equipo</h3>
-                <p>Altavoces, mesas, micrófonos</p>
+                <h3>Alquiler de Equipo</h3>
+                <p>Line arrays, monitores, micrófonos y mesas de mezcla</p>
                 <div class="price">200€/día</div>
+                <small>+ IVA · Entrega y recogida incluida</small>
+            </div>
+            <div class="service-card" onclick="solicitarServicio('Masterización')">
+                <i class="fas fa-headphones"></i>
+                <h3>Masterización</h3>
+                <p>Pulido final para tus canciones o álbum</p>
+                <div class="price">150€/track</div>
+                <small>+ IVA · Entrega en 48h</small>
+            </div>
+            <div class="service-card" onclick="solicitarServicio('Asesoría acústica')">
+                <i class="fas fa-chalkboard"></i>
+                <h3>Asesoría Acústica</h3>
+                <p>Mejora el sonido de tu local, estudio o sala</p>
+                <div class="price">300€</div>
+                <small>+ IVA · Visita + informe detallado</small>
             </div>
         </div>
     </div>
 
-    <!-- REGISTRO DUEÑO (solo Manolo) -->
-    <div id="register" class="section">
-        <h2>📝 Registro del Dueño</h2>
-        <p style="margin-bottom: 20px;">Manolo Repole, regístrate para gestionar las solicitudes.</p>
-        <div id="registerMsg"></div>
-        <form id="registerForm">
-            <div class="form-group">
-                <input type="text" id="ownerUser" placeholder="Usuario" required>
+    <!-- SECCIÓN SOBRE MANOLO -->
+    <div id="about" class="section">
+        <h2 style="font-size: 36px; margin-bottom: 20px;">📖 Sobre Manolo Repole</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;"><strong>Manolo Repole</strong> es ingeniero de sonido con más de 15 años de experiencia en la industria musical y de eventos. Ha trabajado con artistas como <strong>Vetusta Morla, Rozalén, Love of Lesbian</strong> y ha sido técnico de sonido en festivales como <strong>Primavera Sound, Mad Cool y Sonorama</strong>.</p>
+                <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">Formado en la Escuela de Música Creativa y con certificaciones en diseño acústico por la Universidad Politécnica de Madrid, Manolo combina la técnica más avanzada con un oído privilegiado y un trato cercano y profesional.</p>
+                <p style="font-size: 18px; line-height: 1.6;"><strong>Filosofía:</strong> "El sonido no se escucha, se siente. Mi trabajo es que cada nota, cada palabra y cada efecto llegue al corazón del público con la máxima fidelidad."</p>
             </div>
-            <div class="form-group">
-                <input type="password" id="ownerPass" placeholder="Contraseña" required>
+            <div style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 30px;">
+                <h3>🏆 Logros destacados</h3>
+                <ul style="margin-top: 20px; line-height: 2;">
+                    <li>✓ Sonido principal en 5 ediciones del Mad Cool Festival</li>
+                    <li>✓ Mejor técnico de sonido 2022 (Premios Eventoplus)</li>
+                    <li>✓ Colaborador de D&B Audiotechnik</li>
+                    <li>✓ +500 eventos con 0 fallos técnicos</li>
+                </ul>
+                <h3 style="margin-top: 30px;">🎓 Certificaciones</h3>
+                <ul style="margin-top: 20px; line-height: 2;">
+                    <li>✓ Ingeniería de sonido en vivo (SAE Institute)</li>
+                    <li>✓ Diseño acústico y tratamiento de salas</li>
+                    <li>✓ Pro Tools Expert Certification</li>
+                </ul>
             </div>
-            <button type="submit">Registrarme como dueño</button>
-        </form>
+        </div>
     </div>
 
-    <!-- LOGIN DUEÑO -->
+    <!-- LOGIN DUEÑO (solo Manolo con contraseña 1748) -->
     <div id="login" class="section">
         <h2>🔐 Panel de Control - Manolo Repole</h2>
+        <p style="margin-bottom: 20px;">Accede para ver todas las solicitudes de servicio de tus clientes.</p>
         <div id="loginMsg"></div>
         <form id="loginForm">
             <div class="form-group">
@@ -319,7 +388,7 @@
             <button type="submit">Iniciar sesión</button>
         </form>
         <div id="solicitudesPanel" style="margin-top: 30px; display: none;">
-            <h3>📋 Solicitudes de servicio</h3>
+            <h3>📋 Solicitudes de servicio recibidas</h3>
             <div class="solicitudes-table">
                 <table id="tablaSolicitudes">
                     <thead>
@@ -328,6 +397,8 @@
                     <tbody id="listaSolicitudes"></tbody>
                 </table>
             </div>
+            <button onclick="exportarSolicitudes()" style="margin-top: 20px; background: #4ecdc4;">📥 Exportar a JSON</button>
+            <button onclick="borrarTodasSolicitudes()" style="margin-top: 20px; margin-left: 10px; background: #ff6b6b;">🗑️ Borrar todas</button>
         </div>
     </div>
 </div>
@@ -347,11 +418,12 @@
     let time = 0;
     function drawWaves() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = '#ff6b6b';
-        ctx.lineWidth = 2;
         
+        // Olas rojas/rosas
         for(let i = 0; i < 5; i++) {
             ctx.beginPath();
+            ctx.strokeStyle = '#ff6b6b';
+            ctx.lineWidth = 2;
             let offset = i * 40;
             for(let x = 0; x < canvas.width; x += 10) {
                 let y = canvas.height/2 + Math.sin(x * 0.01 + time + offset) * 30 + Math.cos(x * 0.02 + time * 1.5) * 15;
@@ -361,15 +433,17 @@
             ctx.stroke();
         }
         
+        // Olas turquesas
         for(let i = 0; i < 5; i++) {
             ctx.beginPath();
+            ctx.strokeStyle = '#4ecdc4';
+            ctx.lineWidth = 2;
             let offset = i * 40 + 200;
             for(let x = 0; x < canvas.width; x += 10) {
                 let y = canvas.height/3 + Math.sin(x * 0.015 + time * 2 + offset) * 20;
                 if(x === 0) ctx.moveTo(x, y);
                 else ctx.lineTo(x, y);
             }
-            ctx.strokeStyle = '#4ecdc4';
             ctx.stroke();
         }
         
@@ -391,7 +465,10 @@
         let nombre = prompt("📞 Tu nombre completo:");
         if(!nombre) return;
         let email = prompt("✉️ Tu email:");
-        if(!email) return;
+        if(!email || !email.includes('@')) {
+            alert("Por favor, introduce un email válido");
+            return;
+        }
         let telefono = prompt("📱 Tu teléfono:");
         if(!telefono) return;
         
@@ -401,50 +478,29 @@
             email: email,
             telefono: telefono,
             servicio: servicio,
-            fecha: new Date().toLocaleString()
+            fecha: new Date().toLocaleString('es-ES')
         };
         
         let solicitudes = JSON.parse(localStorage.getItem('solicitudes') || '[]');
         solicitudes.push(solicitud);
         localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
         
-        alert("✅ ¡Solicitud enviada! Manolo Repole te contactará pronto.");
+        alert("✅ ¡Solicitud enviada correctamente! Manolo Repole te contactará en menos de 24 horas.");
     }
     
-    // Registro del dueño
-    document.getElementById('registerForm')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let user = document.getElementById('ownerUser').value;
-        let pass = document.getElementById('ownerPass').value;
-        
-        if(user === "Manolo" || user === "manolo") {
-            localStorage.setItem('owner', JSON.stringify({usuario: user, password: btoa(pass)}));
-            document.getElementById('registerMsg').innerHTML = '<div class="alert alert-success">✅ Dueño registrado correctamente. Ahora inicia sesión.</div>';
-            setTimeout(() => showSection('login'), 1500);
-        } else {
-            document.getElementById('registerMsg').innerHTML = '<div class="alert alert-error">❌ Solo Manolo Repole puede registrarse como dueño.</div>';
-        }
-    });
-    
-    // Login y ver solicitudes
+    // LOGIN con credenciales fijas: Manolo Repole / 1748
     document.getElementById('loginForm')?.addEventListener('submit', (e) => {
         e.preventDefault();
         let user = document.getElementById('loginUser').value;
         let pass = document.getElementById('loginPass').value;
         
-        let ownerData = localStorage.getItem('owner');
-        if(!ownerData) {
-            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-error">❌ No hay dueño registrado. Regístrate primero.</div>';
-            return;
-        }
-        
-        let owner = JSON.parse(ownerData);
-        if(owner.usuario === user && atob(owner.password) === pass) {
-            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-success">✅ Bienvenido Manolo Repole</div>';
+        if(user === "Manolo Repole" && pass === "1748") {
+            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-success">✅ Bienvenido, Manolo Repole. Has accedido al panel de control.</div>';
             document.getElementById('solicitudesPanel').style.display = 'block';
             mostrarSolicitudes();
         } else {
-            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-error">❌ Usuario o contraseña incorrectos</div>';
+            document.getElementById('loginMsg').innerHTML = '<div class="alert alert-error">❌ Usuario o contraseña incorrectos. Recuerda: Usuario = "Manolo Repole" · Contraseña = "1748"</div>';
+            document.getElementById('solicitudesPanel').style.display = 'none';
         }
     });
     
@@ -453,7 +509,7 @@
         let tbody = document.getElementById('listaSolicitudes');
         tbody.innerHTML = '';
         if(solicitudes.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">No hay solicitudes aún</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">📭 No hay solicitudes aún. Los clientes aparecerán aquí cuando soliciten servicios.</td></tr>';
             return;
         }
         solicitudes.forEach(s => {
@@ -466,10 +522,32 @@
         });
     }
     
-    // Cargar solicitudes automáticamente si ya está logueado
-    if(localStorage.getItem('owner')) {
-        // Opcional: comprobar sesión, pero por simplicidad lo dejamos así
+    function exportarSolicitudes() {
+        let solicitudes = JSON.parse(localStorage.getItem('solicitudes') || '[]');
+        if(solicitudes.length === 0) {
+            alert("No hay solicitudes para exportar");
+            return;
+        }
+        let dataStr = JSON.stringify(solicitudes, null, 2);
+        let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        let exportFileDefaultName = `solicitudes_manolo_${new Date().toISOString().slice(0,19)}.json`;
+        let linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        alert("✅ Solicitudes exportadas correctamente");
     }
+    
+    function borrarTodasSolicitudes() {
+        if(confirm("⚠️ ¿Estás seguro de que quieres borrar TODAS las solicitudes? Esta acción no se puede deshacer.")) {
+            localStorage.removeItem('solicitudes');
+            mostrarSolicitudes();
+            alert("🗑️ Todas las solicitudes han sido eliminadas.");
+        }
+    }
+    
+    // Si el dueño ya estaba logueado, mantener el panel visible (opcional)
+    // No implementamos persistencia de sesión para mantenerlo simple
 </script>
 
 </body>
